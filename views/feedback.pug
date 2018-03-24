@@ -1,0 +1,7 @@
+extends layout
+
+block content
+	form(action='/feedback', method='post')
+				label What do you think?
+					input(type='text', name='thoughts')
+				button(type='submit') submit
