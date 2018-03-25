@@ -2,6 +2,8 @@ extends layout.pug
 
 block content
 	form(action='/login', method='post')
-				label Please enter your name:
-					input(type='text', name='username')
-				button(type='submit') submit
+		label Username:
+			input(type='text', name='username')
+		label Password:
+			input(type="text", name='password')
+		button(type='submit') submit

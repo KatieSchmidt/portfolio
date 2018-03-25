@@ -1,7 +1,7 @@
-extends layout
+extends layout.pug
 
 block content
 	form(action='/feedback', method='post')
-				label What do you think?
-					input(type='text', name='thoughts')
-				button(type='submit') submit
+		label What do you think?
+			input(type='text', name='thoughts')
+		button(type='submit') submit

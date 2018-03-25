@@ -1,12 +1,15 @@
 doctype html
 html(lang="en")
-	include includes/head.pug
+head
+	title #{pageTitle}
+	style
+		include ../public/css/style.css
 
 	body
-		h1 #{pageHeader}
 		include includes/navBar.pug
+		h1 #{pageHeader}
 
-		h3 #{contentHeader}
-		p #{contentParagraph}
-		
-	include includes/footer.pug
+		block content
+
+
+		include includes/footer.pug

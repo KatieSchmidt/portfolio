@@ -14,11 +14,19 @@ db.once("open", function(){
 
 	const UserSchema = new Schema({
 		name: String,//the name you get from textbox.,
-		review: String,//comes from a textbox
+		email: String,
 		dateAdded: {type: Date, default: Date.now} //comes as new when you submit it.
 	});
 
+	const UserReviewSchema = new Schema({
+		username: String,
+		review: String,
+		dateAdded: {type: Date, default: Date.now}
+	});
+
 	const User = mongoose.model("User", UserSchema);
+
+	const UserReview = mongoose.model("UserReview", UserReviewSchema);
 
 	let mary = new User({
 		name: "mary",//the name you get from textbox.,
