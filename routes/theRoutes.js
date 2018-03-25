@@ -1,8 +1,41 @@
 const express = require('express');
 const router = express.Router();
+var User = require('../models');
 
+router.get("/register", (req, res, next) => {
+	res.render("register", {pageTitle: 'Register', pageHeader: "Register here if you want to leave some feedback."})
+});
 
-router.get("/register", )
+router.post('/register', function(req, res, next) {
+if (req.body.email &&
+	req.body.name &&
+	req.body.password &&
+	req.body.confirmPassword) {
+		if (req.body.password !== req.body.confirmPassword){
+			var err = new Error('Passwords dont match!');
+			err.status = 400;
+			return next(err);
+		} else {
+			var userData = {
+				email: req.body.email,
+				name: req.body.name,
+				password: req.body.password
+			};
+
+			User.create(userData, function(error, user) {
+        if (error){
+          return next(error);
+        } else {
+          return res.redirect('/profile');
+        };
+      });
+		};
+	} else {
+		var err = new Error('All fields are required');
+		err.status = 400;
+		return next(err);
+	};
+});
 
 router.get("/", (req, res, next) => {
 	res.cookie('username', req.body.username);
@@ -34,7 +67,7 @@ router.get("/thankyou", (req, res) => {
 
 router.get("/about", (req, res, next) => {
 	res.cookie('username', req.body.username);
-	res.render("layout", {pageHeader: "Aboout Me",
+	res.render("layout", {pageHeader: "About Me",
 	pageTitle: "About"});
 });
 

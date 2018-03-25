@@ -1,56 +1,39 @@
 'use strict'
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/userFeedback");
-const db = mongoose.connection;
 
-db.on("error", function(err){
-	console.error("Connection error:", err);
-});
-db.once("open", function(){
-	console.log("Conection to db was succesful");
 
-	const Schema = mongoose.Schema;
 
-	const UserSchema = new Schema({
-		name: String,//the name you get from textbox.,
-		email: String,
-		dateAdded: {type: Date, default: Date.now} //comes as new when you submit it.
-	});
+const Schema = mongoose.Schema;
 
-	const UserReviewSchema = new Schema({
-		username: String,
-		review: String,
-		dateAdded: {type: Date, default: Date.now}
-	});
-
-	const User = mongoose.model("User", UserSchema);
-
-	const UserReview = mongoose.model("UserReview", UserReviewSchema);
-
-	let mary = new User({
-		name: "mary",//the name you get from textbox.,
-		review: "Good Job!",//comes from a textbox
-	});
-
-	mary.save(function(err){
-		if (err) console.error("Save Failed", err);
-		else console.log("Saved!");
-		db.close(function(){
-			console.log("db connection closed.");
-		});
-	});
-
+const UserSchema = new Schema({
+	email: {
+		type: String,
+		unique: true,
+		required: true,
+		trim: true,
+	},
+	name: {
+		type: String,
+		required: true,
+		trim: true,
+	},
+	password: {
+		type: String,
+		required: true,
+	}
 });
 
+const UserReviewSchema = new Schema({
+	username: String,
+	review: String,
+	dateAdded: {type: Date, default: Date.now}
+});
+
+const User = mongoose.model("User", UserSchema);
+
+const UserReview = mongoose.model("UserReview", UserReviewSchema);
 
 
-// what entities am I tracking and
-// users -
-//       names,
-//         reviews,
-//           date added,
-//
 
-
-// how are they related?
+module.exports = User;

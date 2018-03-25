@@ -4,7 +4,18 @@ const pug = require('pug');
 const mainRoutes = require('./routes/theRoutes');
 const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
+mongoose.connect("Mongodb://localhost:27017/userFeedback")
+
+const db = mongoose.connection;
+
+db.on("error", function(err){
+	console.error("Connection error:", err);
+});
+db.once("open", function(){
+	console.log("Conection to db was succesful");
+});
 
 app.set('view engine', 'pug');
 app.set('views', './views');
