@@ -1,9 +1,7 @@
 'use strict'
 
 const mongoose = require("mongoose");
-
-
-
+const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -24,16 +22,17 @@ const UserSchema = new Schema({
 	}
 });
 
-const UserReviewSchema = new Schema({
-	username: String,
-	review: String,
-	dateAdded: {type: Date, default: Date.now}
+UserSchema.pre('save', function(next) {
+	const user = this;
+	bcrypt.hash(user.password, 10, function(err, hash){
+		if (err) {
+			return next(err);
+		}
+		user.password = hash;
+		next();
+	})
 });
 
 const User = mongoose.model("User", UserSchema);
-
-const UserReview = mongoose.model("UserReview", UserReviewSchema);
-
-
 
 module.exports = User;

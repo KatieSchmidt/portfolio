@@ -26,7 +26,7 @@ if (req.body.email &&
         if (error){
           return next(error);
         } else {
-          return res.redirect('/profile');
+          return res.redirect('/feedback');
         };
       });
 		};
@@ -43,12 +43,18 @@ router.get("/", (req, res, next) => {
 	pageTitle: "Home" });
 });
 
-router.get("/login", (req, res) => {
-	res.render('login')
+router.get("/login", (req, res, next) => {
+	return res.render('login', {title: "Login"});
 });
 
-router.post("/login", (req, res) => {
-	res.redirect("/feedback")
+router.post("/login", (req, res, next) => {
+	if (req.body.email && req.body.password) {
+		
+	} else {
+		let err = new Error('Email and Password are required.');
+		err.status = 401;
+		return next(err);
+	}
 });
 
 
