@@ -1,6 +1,7 @@
 extends layout.pug
 
 block content
+	h2 Welcome #{name}
 	form(action='/feedback', method='post')
 		label What do you think?
 			input(type='text', name='thoughts')

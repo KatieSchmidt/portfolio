@@ -26,6 +26,7 @@ if (req.body.email &&
         if (error){
           return next(error);
         } else {
+					req.session.userId = user._id;
           return res.redirect('/feedback');
         };
       });
@@ -49,7 +50,16 @@ router.get("/login", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
 	if (req.body.email && req.body.password) {
-		
+		User.authenticate(req.body.email, req.body.password, (error, user) => {
+			if (error || !user){
+				let err = new Error('Wrong email or password.');
+				err.status = 401;
+				return next(err);
+			} else {
+				req.session.userId = user._id;
+				return res.redirect("/feedback");
+			}
+		});
 	} else {
 		let err = new Error('Email and Password are required.');
 		err.status = 401;
@@ -59,10 +69,19 @@ router.post("/login", (req, res, next) => {
 
 
 router.get("/feedback", (req, res, next) => {
-	res.cookie('username', req.body.username);
-	res.render("feedback", {pageHeader: "What do you think about my first portfolio site?", pageTitle: "Feedback"});
+	if (! req.session.userId ){
+		let err = new Error('You arent authorized to view this page. You must log in to leave feedback.');
+		err.status = 403;
+		return next(err);
+	}
+	User.findById(req.session.userId).exec((error, user) => {
+		if (error) {
+			return next(error);
+		} else {
+			return res.render("feedback", {pageHeader: "What do you think about my first portfolio site?", pageTitle: "Feedback", name: user.name});
+		}
+	});
 });
-
 router.post("/feedback", (req, res) => {
 	res.redirect('/thankyou')
 });
