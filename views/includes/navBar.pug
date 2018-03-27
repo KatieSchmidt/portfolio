@@ -1,20 +1,20 @@
-ul
-	if !currentUser
-		li
-			a(href="/register") Register
-		li
-			a(href="/login") Log In
-	li
-		a(href="/about") About
-	li
-		a(href="/projects") Projects
-	li
-		a(href="/contact") Contact
-	li
-		a(href="/") Home
-	if currentUser
-		li
-			a(href="/feedback") Feedback
-		li
-			a(href="/logout") Log out
-		
+div.container-fluid
+	div.row
+		if !currentUser
+			div.col-md-2
+				a(href="/register") Register
+			div.col-md-2
+				a(href="/login") Log In
+		div.col-md-2
+			a(href="/about") About
+		div.col-md-2
+			a(href="/projects") Projects
+		div.col-md-2
+			a(href="/contact") Contact
+		div.col-md-2
+			a(href="/") Home
+		if currentUser
+			div.col-md-2
+				a(href="/feedback") Feedback
+			div.col-md-2
+				a(href="/logout") Log out
