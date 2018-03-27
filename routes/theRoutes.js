@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-var User = require('../models');
+const User = require('../models');
+const mid = require('../middleware');
 
-router.get("/register", (req, res, next) => {
+router.get("/register", mid.loggedOut, (req, res, next) => {
 	res.render("register", {pageTitle: 'Register', pageHeader: "Register here if you want to leave some feedback."})
 });
 
@@ -41,47 +42,55 @@ if (req.body.email &&
 router.get("/", (req, res, next) => {
 	res.cookie('username', req.body.username);
 	res.render("layout", {pageHeader: "This is the HomePage",
-	pageTitle: "Home" });
+	pageTitle: "Home"});
 });
 
-router.get("/login", (req, res, next) => {
+router.get("/login", mid.loggedOut, (req, res, next) => {
 	return res.render('login', {title: "Login"});
 });
 
-router.post("/login", (req, res, next) => {
-	if (req.body.email && req.body.password) {
-		User.authenticate(req.body.email, req.body.password, (error, user) => {
-			if (error || !user){
-				let err = new Error('Wrong email or password.');
-				err.status = 401;
-				return next(err);
-			} else {
-				req.session.userId = user._id;
-				return res.redirect("/feedback");
-			}
-		});
-	} else {
-		let err = new Error('Email and Password are required.');
-		err.status = 401;
-		return next(err);
-	}
+router.post('/login', function(req, res, next){
+  if (req.body.email &&
+  req.body.password){
+    User.authenticate(req.body.email, req.body.password, function(err, user){
+      if (err || !user) {
+        var err = new Error('Wrong email or password');
+        err.status = 401;
+        return next(err);
+      } else {
+        req.session.userId = user._id;
+        return res.redirect('/');
+      }
+    });
+  } else {
+    var err = new Error('Password and email required to login.');
+    err.status = 401;
+    return next(err);
+  }
 });
 
-
-router.get("/feedback", (req, res, next) => {
-	if (! req.session.userId ){
-		let err = new Error('You arent authorized to view this page. You must log in to leave feedback.');
-		err.status = 403;
-		return next(err);
+router.get("/logout", (req, res, next) => {
+	if (req.session) {
+		req.session.destroy( (err) => {
+			if (err) {
+				return next(err);
+			} else {
+				return res.redirect('/');
+			}
+		})
 	}
+})
+
+router.get("/feedback", mid.loggedOut, (req, res, next) => {
 	User.findById(req.session.userId).exec((error, user) => {
 		if (error) {
 			return next(error);
 		} else {
-			return res.render("feedback", {pageHeader: "What do you think about my first portfolio site?", pageTitle: "Feedback", name: user.name});
+			return res.render("feedback", {pageHeader: "What do you think about my first portfolio site?", pageTitle: "Feedback"});
 		}
 	});
 });
+
 router.post("/feedback", (req, res) => {
 	res.redirect('/thankyou')
 });

@@ -22,6 +22,11 @@ app.use(session({
 }));
 
 
+app.use((req, res, next) => {
+	res.locals.currentUser = req.session.userId;
+	next();
+})
+
 
 db.on("error", function(err){
 	console.error("Connection error:", err);
@@ -34,7 +39,6 @@ app.set('view engine', 'pug');
 app.set('views', './views');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static('public'));
 
 app.use(mainRoutes);
 

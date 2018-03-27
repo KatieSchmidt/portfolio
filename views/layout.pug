@@ -6,8 +6,10 @@ head
 		include ../public/css/style.css
 
 	body
+		if currentUser
+			h1 Welcome #{name}
 		include includes/navBar.pug
-		h1 #{pageHeader}
+		h2 #{pageHeader}
 
 		block content
 

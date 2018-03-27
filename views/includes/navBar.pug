@@ -1,8 +1,9 @@
 ul
-	li
-		a(href="/register") Register
-	li
-		a(href="/login") Log In
+	if !currentUser
+		li
+			a(href="/register") Register
+		li
+			a(href="/login") Log In
 	li
 		a(href="/about") About
 	li
@@ -11,3 +12,9 @@ ul
 		a(href="/contact") Contact
 	li
 		a(href="/") Home
+	if currentUser
+		li
+			a(href="/feedback") Feedback
+		li
+			a(href="/logout") Log out
+		
