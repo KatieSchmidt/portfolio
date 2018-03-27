@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models');
+const User = require('../models/user');
+const Feedback = require('../models/feedback');
 const mid = require('../middleware');
 
 router.get("/", mid.requiresLogin, (req, res, next) => {
@@ -12,6 +13,31 @@ router.get("/", mid.requiresLogin, (req, res, next) => {
 		}
 	});
 });
+
+router.post('/', function(req, res, next) {
+	if ( req.body.feedback ) {
+		let userFeedbackData = {
+			feedback: req.body.feedback,
+			author: User.findById(req.session.userId)
+		};
+
+		Feedback.create(userFeedbackData, (error, feedback) => {
+			if (error) {
+				return next(error);
+			} else {
+				req.session.userFeedbackId = feedback._id;
+				return res.redirect('/thankyou');
+			}
+		})
+	} else {
+		var err = new Error('You need to leave feedback.');
+		err.status = 400;
+		return next(err);
+	};
+});
+
+
+
 
 
 

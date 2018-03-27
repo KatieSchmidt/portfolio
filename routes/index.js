@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models');
+const User = require('../models/user');
 const mid = require('../middleware');
 
 router.get("/register", mid.loggedOut, (req, res, next) => {
@@ -98,7 +98,11 @@ router.get("/projects", (req, res, next) => {
 	res.render("layout", {pageHeader: "My Projects", pageTitle: "Projects"});
 });
 
+router.get("/thankyou", (req, res, next) => {
+	res.render('thankyou');
+	next();
 
+});
 
 
 module.exports = router;

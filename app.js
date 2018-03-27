@@ -27,7 +27,7 @@ app.use(session({
 app.use((req, res, next) => {
 	res.locals.currentUser = req.session.userId;
 	next();
-})
+});
 
 
 db.on("error", function(err){
