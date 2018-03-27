@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
 const pug = require('pug');
-const mainRoutes = require('./routes/theRoutes');
 const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const mainRoutes = require('./routes');
+const feedbackRoutes = require('./routes/feedback');
+
 
 mongoose.connect("Mongodb://localhost:27017/userFeedback")
 
@@ -31,17 +33,16 @@ app.use((req, res, next) => {
 db.on("error", function(err){
 	console.error("Connection error:", err);
 });
-// db.once("open", function(){
-// 	console.log("Conection to db was succesful");
-// });
+db.once("open", function(){
+	console.log("Conection to db was succesful");
+});
 
 app.set('view engine', 'pug');
 app.set('views', './views');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-
 app.use(mainRoutes);
-
+app.use('/feedback', feedbackRoutes)
 
 app.listen(3000, () => {
 	console.log("The server has started on port 3000.");

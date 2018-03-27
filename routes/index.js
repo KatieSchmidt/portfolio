@@ -81,23 +81,6 @@ router.get("/logout", (req, res, next) => {
 	}
 })
 
-router.get("/feedback", mid.loggedOut, (req, res, next) => {
-	User.findById(req.session.userId).exec((error, user) => {
-		if (error) {
-			return next(error);
-		} else {
-			return res.render("feedback", {pageHeader: "What do you think about my first portfolio site?", pageTitle: "Feedback"});
-		}
-	});
-});
-
-router.post("/feedback", (req, res) => {
-	res.redirect('/thankyou')
-});
-
-router.get("/thankyou", (req, res) => {
-	res.render("thankyou", {pageHeader: "FeedBack received!", pageTitle: "Thank you"})
-})
 
 router.get("/about", (req, res, next) => {
 	res.cookie('username', req.body.username);
