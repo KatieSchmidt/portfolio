@@ -3,6 +3,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
+const Feedback = require("./feedback");
 
 const UserSchema = new Schema({
 	email: {
@@ -20,6 +21,7 @@ const UserSchema = new Schema({
 		type: String,
 		required: true,
 	}
+
 });
 
 UserSchema.statics.authenticate = (email, password, callback) => {

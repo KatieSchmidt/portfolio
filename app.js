@@ -29,6 +29,9 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 db.on("error", function(err){
 	console.error("Connection error:", err);
@@ -39,6 +42,7 @@ db.once("open", function(){
 
 app.set('view engine', 'pug');
 app.set('views', './views');
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(mainRoutes);

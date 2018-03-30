@@ -41,12 +41,12 @@ if (req.body.email &&
 
 router.get("/", (req, res, next) => {
 	res.cookie('username', req.body.username);
-	res.render("layout", {pageHeader: "This is the HomePage",
+	res.render("home", {pageHeader: "This is the HomePage",
 	pageTitle: "Home"});
 });
 
 router.get("/login", mid.loggedOut, (req, res, next) => {
-	return res.render('login', {title: "Login"});
+	return res.render('login', {title: "Login", pageHeader: "Login"});
 });
 
 router.post('/login', function(req, res, next){
@@ -84,13 +84,13 @@ router.get("/logout", (req, res, next) => {
 
 router.get("/about", (req, res, next) => {
 	res.cookie('username', req.body.username);
-	res.render("layout", {pageHeader: "About Me",
+	res.render("about", {pageHeader: "About Me",
 	pageTitle: "About"});
 });
 
 router.get("/contact", (req, res, next) => {
 	res.cookie('username', req.body.username);
-	res.render("layout", {pageHeader: "How to get ahold of 'Lil Mama'.", pageTitle: "Contact"});
+	res.render("contact", {pageHeader: "How to get ahold of 'Lil Mama'.", pageTitle: "Contact"});
 });
 
 router.get("/projects", (req, res, next) => {
@@ -101,8 +101,8 @@ router.get("/projects", (req, res, next) => {
 router.get("/thankyou", (req, res, next) => {
 	res.render('thankyou');
 	next();
-
 });
+
 
 
 module.exports = router;

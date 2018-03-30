@@ -15,17 +15,25 @@ router.get("/", mid.requiresLogin, (req, res, next) => {
 });
 
 router.post('/', function(req, res, next) {
+	let currentUserId = req.session.userId;
+ 	let userName = User.findById(currentUserId).exec(function(error, user){
+		if (error) {
+			return next(error);
+				} else {
+					return user.name;
+        }
+	});
+	console.log(userName);
+
 	if ( req.body.feedback ) {
 		let userFeedbackData = {
 			feedback: req.body.feedback,
-			author: User.findById(req.session.userId)
 		};
 
 		Feedback.create(userFeedbackData, (error, feedback) => {
 			if (error) {
 				return next(error);
 			} else {
-				req.session.userFeedbackId = feedback._id;
 				return res.redirect('/thankyou');
 			}
 		})
@@ -36,6 +44,11 @@ router.post('/', function(req, res, next) {
 	};
 });
 
+// router.get("/userfeedback", (req, res, next) => {
+// 	let userFeedback = Feedback.find()
+// 	console.log("here are some feedback responses: ", userFeedback);
+// 	next();
+// })
 
 
 

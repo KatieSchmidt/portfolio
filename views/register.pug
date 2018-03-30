@@ -1,13 +1,23 @@
 extends layout.pug
 
 block content
-	form(action="/register", method="post")
-		label Name
-			input(type='text', name='name')
-		label Email
-			input(type='text', name='email')
-		label Password
-			input(type='text', name='password')
-		label Confirm Password
-			input(type='text', name='confirmPassword')
-		button(type='submit') submit
+
+	.container
+		.alert.alert-danger This site uses cookies
+			button.close(data-dismiss="alert") &times;
+			
+	.container.text-center
+		form(action="/register", method="post")
+			.form-group.row.justify-content-center
+				label(for="name") Name:
+					input.form-control(type='text', name='name')
+			.form-group.row.justify-content-center
+				label(for="email") Email:
+					input.form-control(type='text', name='email')
+			.form-group.row.justify-content-center
+				label(for="password") Password:
+					input.form-control(type='text', name='password')
+			.form-group.row.justify-content-center
+				label(for="confirmPassword") Confirm Password:
+					input.form-control(type='text', name='confirmPassword')
+			button(type='submit').btn.btn-primary Submit
