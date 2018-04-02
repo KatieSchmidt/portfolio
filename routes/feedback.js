@@ -22,19 +22,24 @@ router.get("/", mid.requiresLogin, (req, res, next) => {
 
 router.post('/', mid.requiresLogin, function(req, res, next) {
 
-	if ( req.body.feedback && req.body.name ) {
-
-		const userFeedbackData = {
-			feedback: req.body.feedback,
-			user: req.body.name
-		};
-
-		Feedback.create(userFeedbackData, function(error, feedback) {
-			if (error) {
+	if ( req.body.feedback ) {
+		User.findById(req.session.userId).exec(function(error, user){
+			if (error){
 				return next(error);
 			} else {
-				return res.redirect('/thankyou');
-			};
+				const userFeedbackData = {
+					feedback: req.body.feedback,
+					user: user.name,
+				};
+
+				Feedback.create(userFeedbackData, function(error, feedback) {
+					if (error) {
+						return next(error);
+					} else {
+						return res.redirect('/thankyou');
+					};
+				});
+			}
 		});
 	} else {
 		var err = new Error('You need to leave feedback');
