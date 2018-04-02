@@ -10,6 +10,7 @@ block content
 					th Name
 					th Feedback
 			tbody
-				tr
-					td katie schmidt
-					td this is just lovely
+				each item in feedbackData
+					tr
+						td #{item.user}
+						td #{item.feedback}

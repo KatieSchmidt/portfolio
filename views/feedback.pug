@@ -1,7 +1,24 @@
 extends layout.pug
 
 block content
-	form(action='/feedback', method='post')
-		label What do you think?
-			input(type='text', name='feedback')
-		button(type='submit') submit
+
+	.container
+		form(action='/feedback', method='post').form-group
+			label What do you think?
+				input(type='text', name='feedback')
+			label Username:
+				input(type="text", name="name")
+			button(type='submit') submit
+
+	h2 What other users have said:
+	.container
+		table.table.table-bordered.tabled-hover.table-md
+			thead
+				tr
+					th Name
+					th Feedback
+			tbody
+				each item in feedbackData
+					tr
+						td #{item.user}
+						td #{item.feedback}

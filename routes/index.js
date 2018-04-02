@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const mid = require('../middleware');
+const Feedback = require("../models/feedback")
 
 router.get("/register", mid.loggedOut, (req, res, next) => {
 	res.render("register", {pageTitle: 'Register', pageHeader: "Register here if you want to leave some feedback."})
@@ -40,7 +41,6 @@ if (req.body.email &&
 });
 
 router.get("/", (req, res, next) => {
-	res.cookie('username', req.body.username);
 	res.render("home", {pageHeader: "This is the HomePage",
 	pageTitle: "Home"});
 });
@@ -83,24 +83,23 @@ router.get("/logout", (req, res, next) => {
 
 
 router.get("/about", (req, res, next) => {
-	res.cookie('username', req.body.username);
 	res.render("about", {pageHeader: "About Me",
 	pageTitle: "About"});
 });
 
 router.get("/contact", (req, res, next) => {
-	res.cookie('username', req.body.username);
 	res.render("contact", {pageHeader: "How to get ahold of 'Lil Mama'.", pageTitle: "Contact"});
 });
 
 router.get("/projects", (req, res, next) => {
-	res.cookie('username', req.body.username);
 	res.render("layout", {pageHeader: "My Projects", pageTitle: "Projects"});
 });
 
-router.get("/thankyou", (req, res, next) => {
-	res.render('thankyou');
-	next();
+router.get("/thankyou", (req, res) => {
+	Feedback.find((err, feedback)=>{
+		if (err) return console.error(err);
+		res.render('thankyou', {feedbackData: feedback});
+	});
 });
 
 
