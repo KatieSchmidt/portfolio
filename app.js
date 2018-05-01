@@ -9,7 +9,7 @@ const MongoStore = require('connect-mongo')(session);
 const mainRoutes = require('./routes');
 const feedbackRoutes = require('./routes/feedback');
 const logger = require("morgan");
-
+const compression = require('compression');
 
 mongoose.connect("Mongodb://localhost:27017/userFeedback")
 
@@ -48,6 +48,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(mainRoutes);
 app.use('/feedback', feedbackRoutes)
+
+app.use(compression());
 
 app.listen(3000, () => {
 	console.log("The server has started on port 3000.");

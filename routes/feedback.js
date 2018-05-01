@@ -21,7 +21,6 @@ router.get("/", mid.requiresLogin, (req, res, next) => {
 });
 
 router.post('/', mid.requiresLogin, function(req, res, next) {
-
 	if ( req.body.feedback ) {
 		User.findById(req.session.userId).exec(function(error, user){
 			if (error){
@@ -36,7 +35,7 @@ router.post('/', mid.requiresLogin, function(req, res, next) {
 					if (error) {
 						return next(error);
 					} else {
-						return res.redirect('/thankyou');
+						return res.redirect('/feedback');
 					};
 				});
 			}
