@@ -10,6 +10,10 @@ const mainRoutes = require('./routes');
 const feedbackRoutes = require('./routes/feedback');
 const logger = require("morgan");
 const compression = require('compression');
+const helmet = require('helmet');
+
+app.use(compression());
+app.use(helmet());
 
 mongoose.connect("Mongodb://localhost:27017/userFeedback")
 
@@ -41,6 +45,7 @@ db.once("open", function(){
 	console.log("Conection to db was succesful");
 });
 
+
 app.set('view engine', 'pug');
 app.set('views', './views');
 app.use(express.static('public'));
@@ -49,7 +54,7 @@ app.use(cookieParser());
 app.use(mainRoutes);
 app.use('/feedback', feedbackRoutes)
 
-app.use(compression());
+
 
 app.listen(3000, () => {
 	console.log("The server has started on port 3000.");
