@@ -41,7 +41,7 @@ if (req.body.email &&
 });
 
 router.get("/", (req, res, next) => {
-	res.render("home", {pageHeader: "This is the HomePage",
+	res.render("home", {pageHeader: "Welcome!",
 	pageTitle: "Home"});
 });
 
@@ -59,7 +59,7 @@ router.post('/login', function(req, res, next){
         return next(err);
       } else {
         req.session.userId = user._id;
-        return res.redirect('/');
+        return res.redirect('/feedback');
       }
     });
   } else {

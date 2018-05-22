@@ -10,5 +10,5 @@ services:
       - database
   database:
     image: mongo
-    ports:
-      - "27017"
+    expose:
+      - '27017'

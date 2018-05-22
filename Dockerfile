@@ -20,4 +20,4 @@ COPY . /app
 EXPOSE 3000
 
 
-CMD ["npm", "start", "process.json"]
+CMD ["npm", "start"]

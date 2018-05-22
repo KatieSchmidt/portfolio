@@ -11,13 +11,16 @@ const feedbackRoutes = require('./routes/feedback');
 const logger = require("morgan");
 const compression = require('compression');
 const helmet = require('helmet');
+const db = mongoose.connection;
 
 app.use(compression());
 app.use(helmet());
 
-mongoose.connect("mongodb://database/userFeedback")
+mongoose.connect("mongodb://database/newfeedback")
 
-const db = mongoose.connection;
+db.once('open', () => console.log('Good to go!')).on('error', (error) => {
+ console.warn('Warning', error);
+ });
 
 app.use(session({
   secret: 'katie is the maker',
@@ -36,14 +39,6 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-
-db.on("error", function(err){
-	console.error("Connection error:", err);
-});
-db.once("open", function(){
-	console.log("Conection to db was succesful");
-});
 
 
 app.set('view engine', 'pug');
