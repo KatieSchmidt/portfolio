@@ -88,7 +88,7 @@ router.get("/about", (req, res, next) => {
 });
 
 router.get("/contact", (req, res, next) => {
-	res.render("contact", {pageHeader: "How to get ahold of 'Lil Mama'.", pageTitle: "Contact"});
+	res.render("contact", {pageHeader: "Check out my social media!", pageTitle: "Contact"});
 });
 
 router.get("/projects", (req, res, next) => {

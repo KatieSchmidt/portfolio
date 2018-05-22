@@ -43,3 +43,7 @@ body {
 .contactMe a:link {
 	color: grey;
 }
+
+.contactMe a:visited {
+	color: grey;
+}
