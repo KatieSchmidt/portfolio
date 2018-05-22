@@ -15,7 +15,7 @@ const helmet = require('helmet');
 app.use(compression());
 app.use(helmet());
 
-mongoose.connect("Mongodb://localhost:27017/userFeedback")
+mongoose.connect("mongodb://database/userFeedback")
 
 const db = mongoose.connection;
 

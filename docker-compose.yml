@@ -1,0 +1,14 @@
+version: "2"
+services:
+  app:
+    container_name: my_portfolio_app
+    restart: always
+    build: .
+    ports:
+      - "80:3000"
+    links:
+      - databse
+  database:
+    image: mongo
+    ports:
+      - "27017"
