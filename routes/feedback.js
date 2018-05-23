@@ -29,6 +29,7 @@ router.post('/', mid.requiresLogin, function(req, res, next) {
 				const userFeedbackData = {
 					feedback: req.body.feedback,
 					user: user.name,
+					userId: req.session.userId,
 				};
 
 				Feedback.create(userFeedbackData, function(error, feedback) {

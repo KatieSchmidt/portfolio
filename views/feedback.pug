@@ -16,14 +16,14 @@ block content
 				tr
 					th Name
 					th Feedback
-					th Id
-					th Functions
+					th Actions
 
 			tbody
 				each item in feedbackData
 					tr
 						td #{item.user}
 						td #{item.feedback}
-						td
-							a(href="/feedback/" + item._id)
-								button.btn.btn-danger Delete
+						if item.userId === currentUser
+							td
+								a(href="/feedback/" + item._id)
+									button.btn.btn-danger Delete

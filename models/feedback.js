@@ -9,6 +9,7 @@ const FeedbackSchema = new Schema({
 	createdAt: {type: Date, default: Date.now},
 	updatedAt: {type: Date, default: Date.now},
 	user: String,
+	userId: String,
 });
 
 
