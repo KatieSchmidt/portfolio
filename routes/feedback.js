@@ -59,6 +59,29 @@ router.get("/:id", (req, res, next) => {
 	});
 });
 
+router.get("/edit/:id", (req, res, next) => {
+	Feedback.findOne({_id: req.params.id}, (error, feedback) => {
+		res.render('editFeedback', {feedback: feedback});
+	});
+});
+
+router.post('/update/:id', function (req, res) {
+  Feedback.findById(req.params.id, function(err, feedback) {
+    if (!feedback)
+      return next(new Error('Could not load Document'));
+    else {
+      // do your updates here
+      feedback.feedback = req.body.feedback;
+
+      feedback.save().then(feedback => {
+          res.redirect('/feedback');
+      })
+      .catch(err => {
+            res.status(400).send("unable to update the database");
+      });
+    }
+  });
+});
 
 
 

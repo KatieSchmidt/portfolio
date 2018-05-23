@@ -16,8 +16,6 @@ block content
 				tr
 					th Name
 					th Feedback
-					th Actions
-
 			tbody
 				each item in feedbackData
 					tr
@@ -26,4 +24,6 @@ block content
 						if item.userId === currentUser
 							td
 								a(href="/feedback/" + item._id)
-									button.btn.btn-danger Delete
+									button.btn.btn-danger.mr-2 Delete
+								a(href="/feedback/edit/" + item._id)
+									button.btn.btn-warning Edit

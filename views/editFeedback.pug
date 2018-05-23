@@ -1,0 +1,10 @@
+extends layout
+
+block content
+
+	.container.text-center
+		form(action="/feedback/update/" + feedback.id, method='post')
+			.form-group.row.justify-content-center
+				label(for="feedback") What do you think?
+					input.form-control(type='text', name='feedback', value= feedback.feedback)
+			button(type='submit').btn.btn-primary Update
