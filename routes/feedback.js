@@ -48,6 +48,17 @@ router.post('/', mid.requiresLogin, function(req, res, next) {
 });
 
 
+router.get("/:id", (req, res, next) => {
+	Feedback.deleteOne({_id: req.params.id}, (error) => {
+		if (error) {
+			return next(error);
+		} else {
+			res.redirect('/feedback');
+		};
+	});
+});
+
+
 
 
 
