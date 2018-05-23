@@ -16,7 +16,7 @@ const db = mongoose.connection;
 app.use(compression());
 app.use(helmet());
 
-mongoose.connect("mongodb://database/newfeedback")
+mongoose.connect("mongodb://localhost:27017/testdb");
 
 db.once('open', () => console.log('Good to go!')).on('error', (error) => {
  console.warn('Warning', error);
