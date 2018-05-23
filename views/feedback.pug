@@ -2,12 +2,13 @@ extends layout.pug
 
 block content
 
-	.container.text-center
-		form(action='/feedback', method='post')
-			.form-group.row.justify-content-center
-				label(for="feedback") What do you think?
-					input.form-control(type='text', name='feedback')
-			button(type='submit').btn.btn-primary submit
+	if currentUser
+		.container.text-center
+			form(action='/feedback', method='post')
+				.form-group.row.justify-content-center
+					label(for="feedback") What do you think?
+						input.form-control(type='text', name='feedback')
+				button(type='submit').btn.btn-primary submit
 
 	h2.text-center What other users have said:
 	.container
@@ -21,9 +22,8 @@ block content
 					tr
 						td #{item.user}
 						td #{item.feedback}
-						if item.userId === currentUser
-							td
+							if item.userId === currentUser
 								a(href="/feedback/" + item._id)
-									button.btn.btn-danger.mr-2 Delete
+									button.btn.btn-danger.mr-2.ml-2 Delete
 								a(href="/feedback/edit/" + item._id)
 									button.btn.btn-warning Edit

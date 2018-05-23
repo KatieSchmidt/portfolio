@@ -5,6 +5,12 @@ nav.navbar.navbar-light.bg-light.navbar-expand-sm
 		span.navbar-toggler-icon
 	div.collapse.navbar-collapse#navbarCollapse
 		ul.navbar-nav.ml-auto
+			li.navbar-item
+				a(href="/about").nav-link About
+			li.navbar-item
+				a(href="/contact").nav-link Contact
+			li.navbar-item
+				a(href="/feedback").nav-link Feedback
 			if !currentUser
 				li.navbar-item
 					a(href="/register").nav-link Register
@@ -12,13 +18,4 @@ nav.navbar.navbar-light.bg-light.navbar-expand-sm
 					a(href="/login").nav-link Log In
 			if currentUser
 				li.navbar-item
-					a(href="/feedback").nav-link Feedback
-				li.navbar-item
 					a(href="/logout").nav-link Log out
-			li.navbar-item
-				a(href="/about").nav-link About
-			li.navbar-item
-				a(href="/projects").nav-link Projects
-			li.navbar-item
-				a(href="/contact").nav-link Contact
-			

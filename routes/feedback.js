@@ -6,7 +6,7 @@ const mid = require('../middleware');
 
 
 
-router.get("/", mid.requiresLogin, (req, res, next) => {
+router.get("/", (req, res, next) => {
 	User.findById(req.session.userId).exec((error, user) => {
 		if (error) {
 			return next(error);
