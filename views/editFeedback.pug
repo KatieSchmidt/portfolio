@@ -5,6 +5,7 @@ block content
 	.container.text-center
 		form(action="/feedback/update/" + feedback.id, method='post')
 			.form-group.row.justify-content-center
-				label(for="feedback") What do you think?
-					input.form-control(type='text', name='feedback', value= feedback.feedback)
+				label(for="feedback") Edit?
+					textarea.form-control(type='text', name='feedback', placeholder = feedback.feedback)
 			button(type='submit').btn.btn-primary Update
+			button(href="/feedback").btn.btn-danger Cancel

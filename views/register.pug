@@ -5,7 +5,7 @@ block content
 	.container
 		.alert.alert-danger This site uses cookies
 			button.close(data-dismiss="alert") &times;
-			
+
 	.container.text-center
 		form(action="/register", method="post")
 			.form-group.row.justify-content-center
@@ -16,8 +16,8 @@ block content
 					input.form-control(type='text', name='email')
 			.form-group.row.justify-content-center
 				label(for="password") Password:
-					input.form-control(type='text', name='password')
+					input.form-control(type='password', name='password')
 			.form-group.row.justify-content-center
 				label(for="confirmPassword") Confirm Password:
-					input.form-control(type='text', name='confirmPassword')
+					input.form-control(type='password', name='confirmPassword')
 			button(type='submit').btn.btn-primary Submit
