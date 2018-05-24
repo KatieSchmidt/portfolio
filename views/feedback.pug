@@ -8,22 +8,19 @@ block content
 				.form-group.row.justify-content-center
 					label(for="feedback") What do you think?
 						textarea.form-control(type='text', name='feedback')
-				button(type='submit').btn.btn-primary submit
+				button(type='submit').btn.btn-primary.mb-4 submit
 
-	h2.text-center What other users have said:
 	.container
-		table.table.table-bordered.tabled-hover.table-md
-			thead
-				tr
-					th Name
-					th Feedback
-			tbody
+		table.table.tabled-hover.table-md
+
 				each item in feedbackData
 					tr
 						td #{item.user}
 						td #{item.feedback}
-							if item.userId === currentUser
+						if item.userId === currentUser
+							td
 								a(href="/feedback/" + item._id)
-									button.btn.btn-danger.mr-2.ml-2 Delete
+									button.btn.btn-danger.btn-sm Delete
+							td
 								a(href="/feedback/edit/" + item._id)
-									button.btn.btn-warning Edit
+									button.btn.btn-warning.btn-sm Edit

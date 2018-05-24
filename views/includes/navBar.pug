@@ -1,16 +1,9 @@
-
-nav.navbar.navbar-light.bg-light.navbar-expand-sm
-	a(href="/").navbar-brand KatiesCode.com
+nav.navbar.navbar-dark.navbar-expand-sm
 	button.navbar-toggler(data-toggle="collapse" data-target="#navbarCollapse")
 		span.navbar-toggler-icon
+	a(href="/").navbar-brand KTSC
 	div.collapse.navbar-collapse#navbarCollapse
-		ul.navbar-nav.ml-auto
-			li.navbar-item
-				a(href="/about").nav-link About
-			li.navbar-item
-				a(href="/contact").nav-link Contact
-			li.navbar-item
-				a(href="/feedback").nav-link Feedback
+		ul.navbar-nav
 			if !currentUser
 				li.navbar-item
 					a(href="/register").nav-link Register
@@ -19,3 +12,9 @@ nav.navbar.navbar-light.bg-light.navbar-expand-sm
 			if currentUser
 				li.navbar-item
 					a(href="/logout").nav-link Log out
+			li.navbar-item
+				a(href="/about").nav-link About
+			li.navbar-item
+				a(href="/contact").nav-link Contact
+			li.navbar-item
+				a(href="/feedback").nav-link Feedback
