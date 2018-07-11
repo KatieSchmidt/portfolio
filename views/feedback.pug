@@ -16,14 +16,11 @@ block content
 		table.table.tabled-hover.table-sm.table-borderless
 				each item in feedbackData
 					tr
-						td #{item.user}
-					tr
-						td #{item.feedback}
+						td #{item.feedback} - #{item.user}
 					if item.userId === currentUser
 						tr
 							td
 								a(href="/feedback/" + item._id)
-									button.btn.btn-danger.btn-sm Delete
-							td
+									button.btn.btn-danger.btn-sm.mr-2 Delete
 								a(href="/feedback/edit/" + item._id)
 									button.btn.btn-warning.btn-sm Edit
