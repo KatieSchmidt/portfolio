@@ -13,13 +13,14 @@ block content
 
 
 	.container
-		table.table.tabled-hover.table-md
+		table.table.tabled-hover.table-sm.table-borderless
 				each item in feedbackData
 					tr
 						td #{item.user}
+					tr
 						td #{item.feedback}
-						td #{item.updatedAt}
-						if item.userId === currentUser
+					if item.userId === currentUser
+						tr
 							td
 								a(href="/feedback/" + item._id)
 									button.btn.btn-danger.btn-sm Delete

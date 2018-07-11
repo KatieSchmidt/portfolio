@@ -51,6 +51,10 @@ h2 {
 	color: lightgrey;
 }
 
+.table-borderless td {
+	border: 0;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
