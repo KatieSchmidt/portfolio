@@ -71,7 +71,12 @@ router.post('/update/:id', function (req, res) {
       return next(new Error('Could not load Document'));
     else {
       // do your updates here
-      feedback.feedback = req.body.feedback;
+			if (req.body.feedback){
+				feedback.feedback = req.body.feedback;
+			} else {
+				feedback.feedback = feedback.feedback;
+			}
+
 
       feedback.save().then(feedback => {
           res.redirect('/feedback');
