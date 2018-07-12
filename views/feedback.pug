@@ -17,6 +17,14 @@ block content
 				each item in feedbackData
 					tr
 						td #{item.feedback} - #{item.user}
+							each comment in item.comments
+								p #{comment}
+					if currentUser
+						tr
+							td
+								form(action='/feedback/' + item._id + '/comments', method='post')
+									textarea(class='form-control' name="comment" placeholder="Comment")
+									button(type="submit") Submit
 					if item.userId === currentUser
 						tr
 							td
@@ -24,5 +32,3 @@ block content
 									button.btn.btn-danger.btn-sm.mr-2 Delete
 								a(href="/feedback/edit/" + item._id)
 									button.btn.btn-warning.btn-sm.mr-2 Edit
-								a(href="#" + item._id)
-									button.btn.btn-primary.btn-sm Comment
