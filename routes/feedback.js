@@ -89,44 +89,6 @@ router.post('/update/:id', function (req, res) {
 });
 
 
-router.post('/:id/comments', mid.requiresLogin, function(req, res, next) {
-	if ( req.body.comment ) {
-		User.findById(req.session.userId).exec(function(error, user){
-			if (error){
-				return next(error);
-			} else {
-				const userCommentData = {
-					comment: req.body.comment,
-					author: user.name,
-					userId: req.session.userId,
-				};
-
-				Comment.create(userCommentData, function(error, comment) {
-					if (error) {
-						return next(error);
-					} else {
-						Feedback.findById(req.params.id).exec(function(err, feedback){
-							if (err) return next(err);
-							feedback.comments.unshift(comment);
-							feedback.save();
-						});
-					}
-				});
-
-				Feedback.findById(req.params.id).populate('comments').then(feedback) => {
-					feedback.save();
-					res.redirect('/feedback');
-				});
-
-			};
-		});
-	} else {
-		var err = new Error('You need to leave a comment');
-		err.status = 400;
-		return next(err);
-	};
-});
-
 
 
 module.exports = router;
