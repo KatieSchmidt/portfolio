@@ -11,7 +11,7 @@ router.get("/", (req, res, next) => {
 		if (error) {
 			return next(error);
 		} else {
-				Feedback.find().populate('comments').exec((err, feedback) => {
+				Feedback.find((err, feedback).populate('comments') => {
 					if (err) return console.error(err);
 					res.render('feedback', {feedbackData: feedback,
 					pageHeader: "What do you think about my first portfolio site?", pageTitle: "Feedback"});

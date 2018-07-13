@@ -21,10 +21,10 @@ const UserSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	feedbacks: {
+	feedbacks: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Feedback'
-	},
+	}],
 });
 
 UserSchema.statics.authenticate = (email, password, callback) => {
