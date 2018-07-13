@@ -11,7 +11,7 @@ router.get("/", (req, res, next) => {
 		if (error) {
 			return next(error);
 		} else {
-				Feedback.find((err, feedback) => {
+				Feedback.find().populate('comments').exec((err, feedback) => {
 					if (err) return console.error(err);
 					res.render('feedback', {feedbackData: feedback,
 					pageHeader: "What do you think about my first portfolio site?", pageTitle: "Feedback"});
@@ -88,6 +88,39 @@ router.post('/update/:id', function (req, res) {
   });
 });
 
+
+router.post('/:id/comments', mid.requiresLogin, function(req, res, next) {
+	if ( req.body.comment ) {
+		User.findById(req.session.userId).exec(function(error, user){
+			if (error){
+				return next(error);
+			} else {
+				const userCommentData = {
+					comment: req.body.comment,
+					author: user.name,
+					userId: req.session.userId,
+				};
+
+				Comment.create(userCommentData, function(error, comment) {
+					if (error) {
+						return next(error);
+					} else {
+						Feedback.findById(req.params.id).exec(function(err, feedback){
+							if (err) return next(err);
+							feedback.comments.unshift(comment);
+							feedback.save();
+						});
+					}
+				});
+				return res.redirect('/feedback');
+			};
+		});
+	} else {
+		var err = new Error('You need to leave a comment');
+		err.status = 400;
+		return next(err);
+	};
+});
 
 
 

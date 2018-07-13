@@ -18,7 +18,7 @@ block content
 					tr
 						td #{item.feedback} - #{item.user}
 							each comment in item.comments
-								p #{comment}
+								p #{comment.comment} - #{comment.author}
 					if currentUser
 						tr
 							td
