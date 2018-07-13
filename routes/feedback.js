@@ -107,12 +107,13 @@ router.post('/:id/comments', mid.requiresLogin, function(req, res, next) {
 					} else {
 						Feedback.findById(req.params.id).exec(function(err, feedback){
 							if (err) return next(err);
-							feedback.comments.unshift(comment);
+							feedback.comments.push(comment);
 							feedback.save();
-						});
+							return res.redirect('/feedback');
+						})
+
 					}
 				});
-				return res.redirect('/feedback');
 			};
 		});
 	} else {
