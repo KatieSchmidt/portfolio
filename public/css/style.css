@@ -55,6 +55,16 @@ h2 {
 	border: 0;
 }
 
+.original-post {
+	color: #BFFCF9;
+	font-size: 1.5em;
+}
+
+.post-comment {
+	color: white;
+	font-size: .75em;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

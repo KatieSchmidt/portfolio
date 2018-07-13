@@ -16,15 +16,15 @@ block content
 		table.table.tabled-hover.table-sm.table-borderless
 				each item in feedbackData
 					tr
-						td #{item.feedback} - #{item.user}
+						td.original-post #{item.feedback} - #{item.user}
 							each comment in item.comments
-								p #{comment.comment} - #{comment.author}
+								p.post-comment #{comment.comment} - #{comment.author}
 					if currentUser
 						tr
 							td
 								form(action='/feedback/' + item._id + '/comments', method='post')
 									textarea(class='form-control' name="comment" placeholder="Comment")
-									button(type="submit") Submit
+									button.mt-2(type="submit") Submit
 					if item.userId === currentUser
 						tr
 							td
