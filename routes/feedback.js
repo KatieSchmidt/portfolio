@@ -36,7 +36,15 @@ router.post('/', mid.requiresLogin, function(req, res, next) {
 					if (error) {
 						return next(error);
 					} else {
-						return res.redirect('/feedback');
+						User.findById(req.session.userId).exec(function(err, user){
+							if (err) {
+								return next(err);
+							} else {
+								user.feedbacks.unshift(feedback);
+								user.save();
+								return res.redirect('/feedback');
+							}
+						});
 					};
 				});
 			}
