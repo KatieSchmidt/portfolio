@@ -106,6 +106,7 @@ router.post('/:id/comments', mid.requiresLogin, function(req, res, next) {
 				const userCommentData = {
 					comment: req.body.comment,
 					author: user.name,
+					authorInfo: user._id,
 					userId: req.session.userId,
 				};
 
@@ -117,12 +118,15 @@ router.post('/:id/comments', mid.requiresLogin, function(req, res, next) {
 							if (err) return next(err);
 							feedback.comments.push(comment);
 							feedback.save();
-							return res.redirect('/feedback');
-						})
+						});
 
-					}
+					};
+					user.comments.push(comment);
+					user.save();
+					return res.redirect('/feedback');
 				});
 			};
+
 		});
 	} else {
 		var err = new Error('You need to leave a comment');

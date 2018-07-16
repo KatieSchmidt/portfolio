@@ -9,6 +9,7 @@ const CommentSchema = new Schema({
 	createdAt: {type: Date, default: Date.now},
 	updatedAt: {type: Date, default: Date.now},
 	author: String,
+	authorInfo: {type: Schema.Types.ObjectId, ref: 'User'},
 	userId: String,
 });
 

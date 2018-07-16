@@ -25,6 +25,10 @@ const UserSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Feedback',
 	}],
+	comments: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Comment',
+	}],
 });
 
 UserSchema.statics.authenticate = (email, password, callback) => {
@@ -47,17 +51,34 @@ UserSchema.statics.authenticate = (email, password, callback) => {
 	})
 }
 
-UserSchema.pre('save', function(next) {
-	const user = this;
-	bcrypt.hash(user.password, 10, function(err, hash){
-		if (err) {
-			return next(err);
-		}
-		user.password = hash;
-		next();
-	})
-});
+// UserSchema.pre('save', function(next) {
+// 	const user = this;
+// 	bcrypt.hash(user.password, 10, function(err, hash){
+// 		if (err) {
+// 			return next(err);
+// 		}
+// 		user.password = hash;
+// 		next();
+// 	})
+// });
 
+UserSchema.pre('save', function(next) {
+	User.findById(this._id).exec((err, user) => {
+		if (err || !user) {
+			const user = this;
+			bcrypt.hash(user.password, 10, function(err, hash){
+				if (err) {
+					return next(err);
+				} else {
+					user.password = hash;
+					next();
+				}
+			});
+		} else {
+			next(err);
+		}
+	});
+});
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;
